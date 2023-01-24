@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -416,6 +416,48 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.188235, 0.388235, 0.858824, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=14]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 mob_scene = ExtResource( 3 )
@@ -535,23 +577,24 @@ anims/Idle = SubResource( 12 )
 anims/ScoreUp = SubResource( 13 )
 
 [node name="Retry" type="ColorRect" parent="UserInterface"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.152941, 0.00784314, 0.00784314, 0.447059 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0.0196078, 0.0392157, 0.156863, 0.709804 )
 
 [node name="Label" type="Label" parent="UserInterface/Retry"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Press Spacebar to retry"
+text = "Press Spacebar to try again..."
 align = 1
 valign = 1
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface/Retry"]
+autoplay = "default"
+anims/FadeIn = SubResource( 14 )
+anims/default = SubResource( 15 )
 
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

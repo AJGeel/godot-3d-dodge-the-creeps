@@ -3,5 +3,14 @@
 [resource]
 resource_name = "mob_body"
 params_cull_mode = 2
-albedo_color = Color( 0.0588235, 0.266667, 0.490196, 1 )
-roughness = 0.43
+albedo_color = Color( 0.192157, 0.0392157, 0.0392157, 1 )
+metallic = 0.75
+roughness = 0.26
+rim_enabled = true
+rim = 1.0
+rim_tint = 0.55
+clearcoat_enabled = true
+clearcoat = 1.0
+clearcoat_gloss = 0.99
+transmission_enabled = true
+transmission = Color( 1, 0, 0, 1 )

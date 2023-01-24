@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/Gravel_001_BaseColor.jpg-9cd0ec10af4aaeb30ad5b22b573f9156.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://materials/Gravel/Gravel_001_BaseColor.jpg"
+dest_files=[ "res://.import/Gravel_001_BaseColor.jpg-9cd0ec10af4aaeb30ad5b22b573f9156.stex" ]
 
 [params]
 

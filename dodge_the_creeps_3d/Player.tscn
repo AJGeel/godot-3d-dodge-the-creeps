@@ -7,8 +7,8 @@
 radius = 0.792278
 
 [sub_resource type="CylinderShape" id=2]
-radius = 0.907607
 height = 0.1438
+radius = 0.907607
 
 [sub_resource type="Animation" id=3]
 length = 1.2
@@ -52,9 +52,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.771765, 0 )
 shape = SubResource( 1 )
 
 [node name="MobDetector" type="Area" parent="."]
-monitorable = false
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="MobDetector"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06491, 0 )

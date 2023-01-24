@@ -29,9 +29,17 @@ func _on_MobTimer_timeout():
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
 	# We connect the mob to the score label to update the score upon squashing a mob.
-	mob.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
+	mob.connect("squashed", $UserInterface/HBoxContainer/ScoreLabel, "_on_Mob_squashed")
+	
+	# Speed up gradually
+	var currentWaitTime = $MobTimer.get_wait_time()
+	if (currentWaitTime >= 0.10):
+		var newWaitTime = currentWaitTime - currentWaitTime * 0.02 + 0.0025
+		$MobTimer.set_wait_time(newWaitTime)
 
 
 func _on_Player_hit():
 	$MobTimer.stop()
+	if ($UserInterface/HBoxContainer/TimeLabel).has_method("stop_timer"):
+		$UserInterface/HBoxContainer/TimeLabel.stop_timer()
 	$UserInterface/Retry.show()

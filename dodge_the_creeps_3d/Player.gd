@@ -1,6 +1,7 @@
 extends KinematicBody
 
 signal hit
+signal multiplier_changed(multiplier)
 
 # How fast the player moves in meters per second.
 export var speed = 14
@@ -11,12 +12,28 @@ export var bounce_impulse = 16
 # The downward acceleration when in the air, in meters per second per second.
 export var fall_acceleration = 75
 
+var lastCollision = null
 var velocity = Vector3.ZERO
+var isOnFloor = true
 var isDead = false
+var multiplier = 1
+
+#onready var GroundNode = get_parent().get_node("Ground/CollisionShape")
 
 
-func _physics_process(delta):
+func _physics_process(delta):	
 	if (!isDead):
+		# Update last collision ID
+		#if (lastCollision):
+		#	print(lastCollision.get_collider())
+		#	print(GroundNode)
+			#if (lastCollision.get_collider() != GroundNode):
+			#	isOnFloor = false
+			#else:
+			#	isOnFloor = true
+		
+		#print(isOnFloor)
+		
 		var direction = Vector3.ZERO
 		if Input.is_action_pressed("move_right"):
 			direction.x += 1
@@ -56,10 +73,16 @@ func _physics_process(delta):
 		for index in range(get_slide_count()):
 			var collision = get_slide_collision(index)
 			if collision.collider.is_in_group("mob"):
+				# Add exponentially increasing points for bouncing on mobs
+				multiplier *= 2
+				emit_signal("multiplier_changed", multiplier)
 				var mob = collision.collider
 				if Vector3.UP.dot(collision.normal) > 0.1:
 					mob.squash()
 					velocity.y = bounce_impulse
+			else:
+				emit_signal("multiplier_changed", multiplier)
+				multiplier = 1
 
 		# This makes the character follow a nice arc when jumping
 		$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://ui_theme.tres" type="Theme" id=7]
 [ext_resource path="res://materials/Gravel/Gravel_001_AmbientOcclusion.jpg" type="Texture" id=8]
 [ext_resource path="res://fonts/SpaceGrotesk-Bold.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://TimeLabel.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=6]
 code = "/*
@@ -332,7 +331,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=10]
 resource_name = "ScoreUp"
-length = 0.2
+length = 0.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_scale")
@@ -341,10 +340,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
+"times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( -2, -2, -2 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.3, 1.3 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:modulate")
@@ -353,64 +352,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.188235, 0.388235, 0.858824, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=12]
-resource_name = "Idle"
-length = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "ScoreUp"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
-"transitions": PoolRealArray( -2, -2, -2 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.3, 1.3 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
+"times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.188235, 0.388235, 0.858824, 1 ), Color( 1, 1, 1, 1 ) ]
@@ -548,11 +490,15 @@ margin_right = -20.0
 margin_bottom = 46.0
 
 [node name="ScoreLabel" type="Label" parent="UserInterface/HBoxContainer"]
-margin_right = 62.0
+modulate = Color( 0.188235, 0.388235, 0.858824, 1 )
+margin_right = 680.0
 margin_bottom = 26.0
+rect_pivot_offset = Vector2( 340, 0 )
+size_flags_horizontal = 3
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 9 )
-text = "Kills: 0"
+text = "0"
+align = 1
 script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface/HBoxContainer/ScoreLabel"]
@@ -560,23 +506,9 @@ autoplay = "Idle"
 anims/Idle = SubResource( 11 )
 anims/ScoreUp = SubResource( 10 )
 
-[node name="TimeLabel" type="Label" parent="UserInterface/HBoxContainer"]
-margin_left = 66.0
-margin_right = 680.0
-margin_bottom = 26.0
-size_flags_horizontal = 3
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 9 )
-text = "0:00"
-align = 2
-script = ExtResource( 10 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UserInterface/HBoxContainer/TimeLabel"]
-autoplay = "Idle"
-anims/Idle = SubResource( 12 )
-anims/ScoreUp = SubResource( 13 )
-
 [node name="Retry" type="ColorRect" parent="UserInterface"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0196078, 0.0392157, 0.156863, 0.709804 )
@@ -597,4 +529,5 @@ anims/FadeIn = SubResource( 14 )
 anims/default = SubResource( 15 )
 
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="multiplier_changed" from="Player" to="UserInterface/HBoxContainer/ScoreLabel" method="_on_Player_multiplier_changed"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

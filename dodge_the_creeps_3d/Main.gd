@@ -40,8 +40,8 @@ func _on_MobTimer_timeout():
 
 func _on_Player_hit():
 	$MobTimer.stop()
-	if ($UserInterface/HBoxContainer/TimeLabel).has_method("stop_timer"):
-		$UserInterface/HBoxContainer/TimeLabel.stop_timer()
+	if ($UserInterface/HBoxContainer/ScoreLabel).has_method("stop_timer"):
+		$UserInterface/HBoxContainer/ScoreLabel.stop_timer()
 	yield(get_tree().create_timer(0.8), "timeout")
 	$UserInterface/Retry.show()
 	$UserInterface/Retry/AnimationPlayer.play("FadeIn")
